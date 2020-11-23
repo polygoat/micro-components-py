@@ -9,7 +9,7 @@ import pydash as _
 from pathlib import Path
 from mako.template import Template
 
-REPO_DIR = Path(__file__).parent.parent.resolve()
+REPO_DIR = Path(__file__).resolve(strict=False).parents[1]
 sys.path.insert(0, str(REPO_DIR))
 
 from utils.classes.Component import Component
@@ -29,6 +29,7 @@ ENDINGS = {
 
 class Builder(Component):
 	name = 'builder'
+	version = 'Python 1.0.0'
 
 	def create(component_name, coding_language='python'):
 		data = {
