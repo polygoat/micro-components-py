@@ -30,6 +30,7 @@ ENDINGS = {
 class Builder(Component):
 	name = 'builder'
 	version = 'Python 1.0.0'
+	color = True
 
 	def create(component_name, coding_language='python'):
 		data = {
@@ -52,6 +53,9 @@ class Builder(Component):
 		
 		os.chmod(file_path, 0o775)
 
-		print(Fore.GREEN + ' Component created.' + Style.RESET_ALL + ' Try it by running ' + Fore.YELLOW + f'{file_path} help');
+		if Builder.color:
+			print(Fore.GREEN + ' Component created.' + Style.RESET_ALL + ' Try it by running ' + Fore.YELLOW + f'{file_path} help')
+		else:
+			print(f'Component created. Try it by running {file_path} help')
 
 Builder.export_as_cli()
