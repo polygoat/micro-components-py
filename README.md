@@ -3,10 +3,10 @@ Micro Components for Python
 
 Lightweight library to create components that can automagically be used as either CLI or as native classes in other programming languages
 
-[![pip]][pip] [![pip][travis-badge]][pip]
-
+[![pip][pip-badge]][pip] [![pip][travis-badge]][pip]
 
 [pip]: https://www.pypi.org/project/micro-components
+[pip-badge]: https://badge.fury.io/py/micro-components.svg
 [travis-badge]: https://travis-ci.com/polygoat/micro-components-py.svg?token=Lq7sM5SEXeYPspCGGGdD&branch=main
 
 _The same package is available [for Node][]. [Check it out][] if you want Python and Node components talking to each other!_
@@ -197,14 +197,8 @@ will first run ```RecipeFetcher.load_ingredients("all")```, then ```RecipeFetche
 
 ### Caching
 Before using any of the built-in caching functionality, make sure you have a directory called `data/caches` to store those in.
-To cache individual methods, use the `cached_methods` property array:
 
-```javascript
-	const RecipeFetcher = new Component({
-		name: 'recipe_fetcher',
-		cached_methods: ['heavy_computational_task'],
-		...
-```
+_TODO: add documentation for caching decorators_ 
 
 A JSON cache will be auto-generated in `/data/caches/<component_name>.cache.json`.
 
