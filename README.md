@@ -29,7 +29,7 @@ The beauty of this is that components have a simple JSON interface to talk to ea
 In your terminal run:
 
 ```bash
-$ pip install micro_components
+$ pip install micro-components
 ```
 
 ## Usage
