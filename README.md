@@ -84,7 +84,7 @@ const TaskLogger = Component({
 TaskLogger.export_to_cli();
 ```
 
-We can now use TaskLogger from within our `task_runner**.py**` code:
+We can now use TaskLogger from within our `task_runner.py` code:
 
 ```python
 from micro_components import Component
