@@ -48,6 +48,7 @@ class Component(Hookable):
 	registered = []
 
 	description = ''
+	is_component = True
 	is_cached = False
 	has_cache = False
 
@@ -67,7 +68,7 @@ class Component(Hookable):
 	def init(self, options=None):
 		if not isinstance(self, Component):
 			options = self
-			self = Component
+			self = Component.instance
 
 		if not options:
 			options = {}
@@ -186,6 +187,9 @@ class Component(Hookable):
 	def call_from_cli(self, command, args, verbose=True):
 		command = command.replace('-', '_')
 
+		if Component.instance:
+			self = Component.instance
+
 		if hasattr(self, command):
 			command = getattr(self, command)
 
@@ -200,13 +204,14 @@ class Component(Hookable):
 			if has_named_args(args):
 				named = named_args_as_positional(args, params, self.name, method_container.__name__)
 				args = named['args']
+				named['properties'] = _.map_values(named['properties'], string_to_any)
 				self.init(named['properties'])
 
 			last_param = list(params)[-1]
 			is_consuming_rest = last_param.kind == last_param.VAR_POSITIONAL
 
 			if not is_consuming_rest and len(args) > len(params):
-				result = { error: f'Wrong number of arguments passed to {command}: expected {len(params)} instead of {len(args)}.' }
+				result = { 'error': f'Wrong number of arguments passed to {command.__name__}: expected {len(params)} instead of {len(args)}.' }
 			else:
 				args = list(map(string_to_any, args))
 					
@@ -270,7 +275,7 @@ class ComponentCLIProp:
 			else:
 				args.append(param)
 
-		command = [f'./{self.parent.path}', self.name, *args]
+		command = [self.parent.path, self.name, *args]
 		
 		if self.parent.is_cached:
 			return self.parent.cache.fetch(command, lambda: string_to_any(shell_run(command)))

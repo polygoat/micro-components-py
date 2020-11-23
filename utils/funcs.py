@@ -1,3 +1,4 @@
+import re
 import pydash as _
 
 def named_args_as_positional(args, param_definitions, service_name, method_name):
