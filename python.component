@@ -1,12 +1,6 @@
 #!/usr/bin/env python3
 
-import os
-import sys
-
-ROOT_DIR = os.getcwd()
-sys.path.insert(0, ROOT_DIR)
-
-from utils.classes.Component import Component
+from micro_components import Component
 
 class <%= class_name %>(Component):
 	name = '<%= name %>'
