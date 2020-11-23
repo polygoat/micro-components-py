@@ -1,0 +1,5 @@
+before_script:
+  - npm link
+language: node_js
+node_js:
+  - 12
