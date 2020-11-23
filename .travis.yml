@@ -1,5 +1,5 @@
 before_script:
-  - npm link
-language: node_js
-node_js:
-  - 12
+  - python3 -m pip install -r requirements.txt
+language: python
+python:
+  - 3
