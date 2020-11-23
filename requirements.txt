@@ -1,5 +1,4 @@
 pydash==4.8.0
 termcolor
 colorama
-functools
 mako
