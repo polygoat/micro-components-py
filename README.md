@@ -9,6 +9,11 @@ Lightweight library to create components that can automagically be used as eithe
 [pip]: https://www.pypi.org/project/micro-components
 [travis-badge]: https://travis-ci.com/polygoat/micro-components-py.svg?token=Lq7sM5SEXeYPspCGGGdD&branch=main
 
+_The same package is available [for Node][]. [Check it out][] if you want Python and Node components talking to each other!_
+
+[for Node]: https://github.com/polygoat/micro-components-js
+[Check it out]: https://github.com/polygoat/micro-components-js
+
 ## Goals & Design
 
 Often times, which programming language I pick is predetermined by technical requirements and the resources available in that language. In many cases I have to use a mixture of nodejs, Python, and bash scripts, and they all have to talk to each other.
@@ -101,7 +106,7 @@ You can use the `micro-components` CLI to create a component like so:
 
 **In your terminal:**
 ```bash
-micro-components create "My Component"
+$ micro-components create "My Component"
 ```
 
 This will create a skeleton component file in your current directory.
@@ -141,12 +146,12 @@ If you create your component by hand, make sure your file is executable by addin
 
 …and by giving it execution permissions (in your **terminal**)…
 ```bash
-chmod +x ./components/some_component.py
+$ chmod +x ./components/some_component.py
 ```
 
 …to then run the methods:
 ```bash
-./components/some_component.py fetch_data "parameter" 15 "{ \"sub-param\": \"value\" }"
+$ ./components/some_component.py fetch_data "parameter" 15 "{ \"sub-param\": \"value\" }"
 ```
 
 The Component class will automagically look at the parameter defaults of your component's methods and try to parse parameters passed through the CLI accordingly. 
@@ -164,7 +169,7 @@ RecipeFetcher.export_as_cli();
 ```
 We pass the following arguments via CLI:
 ```bash
-./components/recipe_fetcher.py get_ingredients "Onion Soup" 15 false "{ \"pepper\": false }"
+$ ./components/recipe_fetcher.py get_ingredients "Onion Soup" 15 false "{ \"pepper\": false }"
 ```
 
 The component class will automatically parse 15, false, and the passed JSON string as JSON and use the true datatypes.
@@ -173,20 +178,20 @@ The component class will automatically parse 15, false, and the passed JSON stri
 You can pass named arguments by prefixing the parameter names with two hyphens instead:
 
 ```bash
-/components/recipe_fetcher.py get_ingredients --ingredient_name "Mangosteen" --normalize=1
+$ /components/recipe_fetcher.py get_ingredients --ingredient_name "Mangosteen" --normalize=1
 ```
 
 Properties for the component class can be passed the same way. Arguments that don't match method names will be applied as properties. Any hyphens will be replaced by underscores, meaning `--user-id` will be read as `user_id`.
 
 ```bash 
-/components/recipe_fetcher.py get_ingredients --user-id=1337 --ingredient_name="Capers"
+$ /components/recipe_fetcher.py get_ingredients --user-id=1337 --ingredient_name="Capers"
 ``` 
 
 #### Method Chaining
 Methods can be chained using the chain notation (beware that spacing is crucial):
 
 ```bash
-/components/recipe_fetcher.py [ load_ingredients "all" , get_ingredients "Pepper" 12 ]
+$ /components/recipe_fetcher.py [ load_ingredients "all" , get_ingredients "Pepper" 12 ]
 ```
 will first run ```RecipeFetcher.load_ingredients("all")```, then ```RecipeFetcher.get_ingredients("Pepper", 12)``` and return a dictionary of results for each execution.
 
@@ -241,10 +246,10 @@ new_recipe = RecipeFetcher.trigger('recipe_outdated', [old_recipe])
 ### Properties
 You can access non-callable properties from the CLI using the component module's built-in get and set methods in your terminal:
 ```bash
-./components/recipe_fetcher.py get counts 	# returns 1
+$ ./components/recipe_fetcher.py get counts 	# returns 1
 ```
 ```bash
-./components/recipe_fetcher.py set counts 3
+$ ./components/recipe_fetcher.py set counts 3
 ```
 
 ----------
