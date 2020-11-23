@@ -28,14 +28,14 @@ ENDINGS = {
 class Builder(Component):
 	name = 'builder'
 
-	def create(component_name, coding_language='node'):
+	def create(component_name, coding_language='python'):
 		data = {
-			'name': _.snakeCase(component_name),
-			'class_name': _.startCase(_.camelCase(component_name)).replace(' ', ''),
+			'name': _.snake_case(component_name),
+			'class_name': _.start_case(_.camel_case(component_name)).replace(' ', ''),
 			'cwd': os.getcwd()
 		}
 		coding_language = _.get(MAPPING, coding_language, coding_language)
-		with open(__dirname + f'/../{coding_language}.component', 'r') as template_file:
+		with open(REPO_DIR / f'{coding_language}.component', 'r') as template_file:
 			render = _.template(template_file.read())
 		
 		file = render(data)
