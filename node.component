@@ -1,0 +1,12 @@
+#!/usr/bin/env node
+
+const { Component } = require('micro-components-js');
+
+const <%= class_name %> = new Component({
+	name: '<%= name %>',
+	
+	hello_world: (user_input) => user_input
+});
+
+<%= class_name %>.export_as_cli()
+<%= class_name %>.export_as_(module);
