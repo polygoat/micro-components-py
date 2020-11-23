@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 
 import os
+import re
 import sys
 import stat
 from colorama import init as colorama_init, Fore, Style
 import pydash as _
 from pathlib import Path
+from mako.template import Template
 
 REPO_DIR = Path(__file__).parent.parent.resolve()
 sys.path.insert(0, str(REPO_DIR))
@@ -36,11 +38,13 @@ class Builder(Component):
 		}
 		coding_language = _.get(MAPPING, coding_language, coding_language)
 		with open(REPO_DIR / f'{coding_language}.component', 'r') as template_file:
-			render = _.template(template_file.read())
+			code_template = template_file.read()
+			code_template = code_template.replace('<%= ', '${').replace(' %>', '}')
+			render = Template(code_template).render
 		
-		file = render(data)
+		file = render(**data)
 		file_ending = ENDINGS[coding_language]
-		file_path = f'./{data.name}.{file_ending}'
+		file_path = f'./{data["name"]}.{file_ending}'
 
 		with open(file_path, 'w') as component_file:
 			component_file.write(file)
