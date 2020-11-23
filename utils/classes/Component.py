@@ -82,9 +82,9 @@ class Component(Hookable):
 		self.trigger('init', [self, options])
 		return self
 
-	def from_cli(self, path, extras=None):
-		self.proxy = ComponentCLI(options, extras)
-		return self.proxy
+	@staticmethod
+	def from_cli(path, extras=None):
+		return ComponentCLI(path, extras)
 		
 	@classmethod
 	def init_cache(self):
@@ -294,7 +294,7 @@ class ComponentCLI(Hookable):
 		file_format = name_parts[1]
 
 		self.name = name
-		self.engine = ENGINES[file_format]
+		self.engine = ENGINES[file_format[1:]]
 		self.format = file_format
 		self.is_cached = _.get(options, 'cached', False)
 		self.cache = Cache(f'data/caches/{name}.cache.json')
