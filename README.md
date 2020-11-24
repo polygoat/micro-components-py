@@ -274,6 +274,23 @@ counts = RecipeFetcher.get("counts")
 
 ```
 
+## Testing
+
+This package comes with a set of standard unittest cases located in `[tests/test_micro-components.py][]`
+
+Run them using:
+```bash
+$ pytest
+```
+
+or
+```bash
+$ python3 ./tests/test_micro-components.py
+```
+
+[tests/test_micro-components.py]: https://github.com/polygoat/micro-components-py/tree/main/tests/test_micro-components.py
+
+
 ## Examples
 
 Checkout the [components folder][] in the repo for some examples. The CLI used to create component templates for example is a component itself.
