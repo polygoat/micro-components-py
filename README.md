@@ -296,3 +296,10 @@ $ python3 ./tests/test_micro-components.py
 Checkout the [components folder][] in the repo for some examples. The CLI used to create component templates for example is a component itself.
 
 [components folder]: https://github.com/polygoat/micro-components-py/tree/main/components
+
+
+License
+-------
+[MIT License][]
+
+[MIT License]: https://github.com/polygoat/micro-components-py/blob/main/LICENSE
