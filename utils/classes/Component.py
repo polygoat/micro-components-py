@@ -278,7 +278,8 @@ class ComponentCLIProp:
 		command = [self.parent.path, self.name, *args]
 		
 		if self.parent.is_cached:
-			return self.parent.cache.fetch(command, lambda: string_to_any(shell_run(command)))
+			cache_key = self.parent.trigger('create_cache_key', [command]) or command
+			return self.parent.cache.fetch(cache_key, lambda: string_to_any(shell_run(command)))
 
 		result = shell_run(command)
 		result = string_to_any(result)
