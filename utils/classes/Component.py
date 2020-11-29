@@ -103,22 +103,26 @@ class Component(Hookable):
 		callables = []
 		props = []
 
-		for prop in dir(self):
+		properties = dir(self)
+		properties = _.without(properties, *component_props)
+
+		properties = Component.trigger('help', [properties], properties)
+
+		for prop in properties:
 			if prop[0:2] != '__':
-				if prop not in component_props:
-					attribute = getattr(self, prop)
-					entry = {'name': prop }
-					if callable(attribute):
-						if hasattr(attribute, 'redirect'):
-							attribute = attribute.redirect
-						entry['params'] = str(inspect.signature(attribute))
-						entry['params'] = re.sub(r' ?self, ?', '', entry['params'])
-						entry['params'] = re.sub(r'(=[^,)]+)', Style.DIM + r'\1' + Style.RESET_ALL, entry['params'])
-						entry['params'] = re.sub(r'([()])', Fore.YELLOW + r'\1' + Style.RESET_ALL, entry['params'])
-						callables.append(entry)
-					else:
-						entry['value'] = attribute
-						props.append(entry)	
+				attribute = getattr(self, prop)
+				entry = {'name': prop }
+				if callable(attribute):
+					if hasattr(attribute, 'redirect'):
+						attribute = attribute.redirect
+					entry['params'] = str(inspect.signature(attribute))
+					entry['params'] = re.sub(r' ?self, ?', '', entry['params'])
+					entry['params'] = re.sub(r'(=[^,)]+)', Style.DIM + r'\1' + Style.RESET_ALL, entry['params'])
+					entry['params'] = re.sub(r'([()])', Fore.YELLOW + r'\1' + Style.RESET_ALL, entry['params'])
+					callables.append(entry)
+				else:
+					entry['value'] = attribute
+					props.append(entry)	
 
 		print(colored(f' {_.start_case(self.name)} Component', attrs=['bold']))
 		if self.description:
