@@ -1,1 +1,1 @@
-from .utils.classes.Component import Component
+from .utils.classes.Component import *

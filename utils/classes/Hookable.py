@@ -6,14 +6,21 @@ class Hookable:
 
 	@classmethod
 	def on(cls, event_label, method):
-		cls.hooks[event_label] = method
+		if event_label not in cls.hooks:
+			cls.hooks[event_label] = []
+
+		cls.hooks[event_label].append(method)
 
 	@classmethod
 	def trigger(cls, event_label, parameters=None, fallback=False):
 		if not parameters:
 			parameters = []
 		if event_label in cls.hooks:
-			return cls.hooks[event_label](*parameters)
+			result = None
+			for hook in cls.hooks[event_label]:
+				result = hook(*parameters)
+				parameters[0] = result
+			return result
 		return fallback
 
 def get_defining_class(method):

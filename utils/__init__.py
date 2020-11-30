@@ -1,1 +1,1 @@
-from .classes.Component import Component
+from .classes import *
